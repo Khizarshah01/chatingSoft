@@ -33,9 +33,8 @@ public class MultiThreadedServer {
 
     public void broadcastMessage(String message, ClientHandler sender) {
         for (ClientHandler client : clients) {
-            if (client != sender) {
                 client.sendMessage(message);
-            }
+
         }
     }
 
