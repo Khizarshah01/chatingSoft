@@ -1,7 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.io.*;
 import java.net.Socket;
 import java.util.Scanner;
@@ -39,17 +38,28 @@ public class Client {
             inputField = new JTextField();
             JButton sendButton = new JButton("Send");
 
-            sendButton.addActionListener(new ActionListener() {
+            sendButton.addActionListener(new ActionListener(){
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     sendMessage();
                 }
             });
 
+            inputField.addKeyListener(new KeyAdapter(){
+                public void keyPressed(KeyEvent e){
+                    if(e.getKeyCode() == KeyEvent.VK_ENTER){
+                        sendMessage();
+                    }
+                }
+            });
+
+            Panel p = new Panel();
+            p.setLayout(new BorderLayout());
+            p.add(inputField,BorderLayout.CENTER);
+            p.add(sendButton,BorderLayout.EAST);
             frame.setLayout(new BorderLayout());
             frame.add(scrollPane, BorderLayout.CENTER);
-            frame.add(inputField, BorderLayout.SOUTH);
-            frame.add(sendButton, BorderLayout.EAST);
+            frame.add(p, BorderLayout.SOUTH);
 
             frame.setSize(400, 300);
             frame.setVisible(true);
